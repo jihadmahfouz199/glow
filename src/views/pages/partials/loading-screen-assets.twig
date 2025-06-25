@@ -1,51 +1,67 @@
 <!-- To eliminate all render blocking CSS & JS and start with the critical css-->
 <!-- To show loader to the user till the page content are  loaded-->
 <style>
-  .loader-init {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: white;
-      transition: opacity 0.75s, visibility 0.75s;
-      z-index: 9999;
+  
+/* Loader */
+.bb-loader .loader:before {
+  content: "";
+  width: 100px !important;
+  height: 100px !important;
+  position: absolute;
+  top: -20px;
+  left: -20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  border: 1px dashed #3d4750;
+  border-radius: 50%;
+  -webkit-animation: animloader 5s linear infinite;
+          animation: animloader 5s linear infinite;
+}
+@-webkit-keyframes animloader {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
   }
-
-  .loader-init--hidden {
-      opacity: 0;
-      visibility: hidden;
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
   }
-
-  .loader-init::after {
-      content: "";
-      width: 36px;
-      height: 36px;
-      border: 3px solid #eee;
-      border-top-color: #5bd5c4;
-      border-radius: 50%;
-      animation: loading 0.75s ease infinite;
+}
+@keyframes animloader {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
   }
-
-  @keyframes loading {
-      from {
-        transform: rotate(0turn);
-      }
-      to {
-        transform: rotate(1turn);
-      }
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
   }
+}
+.bb-loader img {
+  width: 100px !important;
+  height: 100px !important;
+}
 </style>
 <script>
-  window.addEventListener("load", () => {
-    const loader = document.querySelector(".loader-init");
-    loader.classList.add("loader-init--hidden");
-    loader.addEventListener("transitionend", () => {
-  if (!document.querySelector(".loader-init")) return;
-      document.body.removeChild(loader);
+  window.addEventListener("load", function () {
+    const loader = document.querySelector(".bb-loader");
+    if (loader) {
+      loader.style.transition = "opacity 0.6s ease";
+      loader.style.opacity = "0";
+
+      loader.addEventListener("transitionend", function () {
+        if (loader && loader.parentNode) {
+          loader.parentNode.removeChild(loader);
+        }
       });
+    }
   });
+
 </script>

@@ -58,6 +58,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {{ theme.settings.set('placeholder', 'images/placeholder.png') }}
 
+    {# for loading screen #}
     {% include 'pages.partials.loading-screen-assets' %}
 
     <script defer data-cfasync="false" src="{{ 'product-card.js'|asset }}"></script>
@@ -96,7 +97,12 @@
   {{ theme.settings.get('topnav_is_dark') ? ' topnav-is-dark' : '' }}
   {{ theme.settings.get('sticky_add_to_cart') ? ' is-sticky-product-bar' : '' }}
   ">
-  <div class="loader-init"></div>
+  <!-- Loader -->
+    <div class="bb-loader min-w-full w-full h-screen fixed top-[0] left-[0] flex items-center justify-center bg-[#fff] z-[45]">
+        <img src="{{ store.logo }}" alt="loader" class="absolute">
+        <span class="loader w-[60px] h-[60px] relative"></span>
+    </div>
+
 <noscript>
     To get full functionality of this site you need to enable JavaScript. Here is how
     <a href="https://www.enable-javascript.com/" rel="noreferrer"
