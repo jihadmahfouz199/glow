@@ -109,6 +109,19 @@
                                 </button>
                                 {% endif %}
                             </div>
+                            {% if store.scope %}
+                            <div class="text-sm text-gray-600">
+                                <i class="sicon-store"></i> <span class="font-semibold text-indigo-600">{{
+                                    store.scope.name }}</span>
+                            </div>
+                            {% endif %}
+
+                            {% if store.scope %}
+                            <button class="btn--rounded-gray"
+                                onclick="salla.event.dispatch('scopes::open', {'mode': 'default'})">
+                                <i class="sicon-location rtl:ml-1 ltr:mr-1"></i> {{ store.scope.name }}
+                            </button>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -257,24 +270,33 @@
 
 
                                     </div>
-                                    <salla-cart-summary class="ml-4 rtl:ml-[unset] rtl:mr-4">
+
+                                    {# <salla-cart-summary class="ml-4 rtl:ml-[unset] rtl:mr-4">
                                         <i slot="icon" class="header-btn__icon icon sicon-shopping-bag"></i>
-                                    </salla-cart-summary>
-                                    <button id="custom-cart-btn" class="relative flex items-center gap-2">
+                                    </salla-cart-summary> #}
+
+                                    {# <button id="custom-cart-btn" class="relative flex items-center gap-2">
                                         <i class="sicon-shopping-bag text-2xl"></i>
                                         <span>سلة مشترياتك</span>
-                                    </button>
+                                    </button> #}
+                                    <!-- زر السلة المخصص -->
+                                    {# <button id="custom-cart-btn" class="relative flex items-center gap-2">
+                                        <div class="relative">
+                                            <i class="sicon-shopping-bag text-2xl"></i>
+                                            <!-- الشارة (badge) -->
+                                            <span id="cart-count-badge"
+                                                class="absolute -top-2 -right-2 bg-red-600 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
+                                                0
+                                            </span>
+                                        </div>
+                                        <span>سلة مشترياتك</span>
+                                    </button> #}
 
-                                    <a href="javascript:void(0)"
+                                    <a href="javascript:void(0)" id="custom-cart-btn"
                                         class="bb-header-btn bb-cart-toggle transition-all duration-[0.3s] ease-in-out relative flex w-[auto] items-center ml-[30px] max-[1199px]:ml-[20px]"
                                         title="Cart">
                                         <div class="header-icon relative flex">
-                                            <svg class="svg-icon w-[30px] h-[30px] max-[1199px]:w-[25px] max-[1199px]:h-[25px] max-[991px]:w-[22px] max-[991px]:h-[22px]"
-                                                viewBox="0 0 1024 1024" version="1.1"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path class="fill-[#6c7fd8]"
-                                                    d="M351.552 831.424c-35.328 0-63.968 28.64-63.968 63.968 0 35.328 28.64 63.968 63.968 63.968 35.328 0 63.968-28.64 63.968-63.968C415.52 860.064 386.88 831.424 351.552 831.424L351.552 831.424 351.552 831.424zM799.296 831.424c-35.328 0-63.968 28.64-63.968 63.968 0 35.328 28.64 63.968 63.968 63.968 35.328 0 63.968-28.64 63.968-63.968C863.264 860.064 834.624 831.424 799.296 831.424L799.296 831.424 799.296 831.424zM862.752 799.456 343.264 799.456c-46.08 0-86.592-36.448-92.224-83.008L196.8 334.592 165.92 156.128c-1.92-15.584-16.128-28.288-29.984-28.288L95.2 127.84c-17.664 0-32-14.336-32-31.968 0-17.664 14.336-32 32-32l40.736 0c46.656 0 87.616 36.448 93.28 83.008l30.784 177.792 54.464 383.488c1.792 14.848 15.232 27.36 28.768 27.36l519.488 0c17.696 0 32 14.304 32 31.968S880.416 799.456 862.752 799.456L862.752 799.456zM383.232 671.52c-16.608 0-30.624-12.8-31.872-29.632-1.312-17.632 11.936-32.928 29.504-34.208l433.856-31.968c15.936-0.096 29.344-12.608 31.104-26.816l50.368-288.224c1.28-10.752-1.696-22.528-8.128-29.792-4.128-4.672-9.312-7.04-15.36-7.04L319.04 223.84c-17.664 0-32-14.336-32-31.968 0-17.664 14.336-31.968 32-31.968l553.728 0c24.448 0 46.88 10.144 63.232 28.608 18.688 21.088 27.264 50.784 23.52 81.568l-50.4 288.256c-5.44 44.832-45.92 81.28-92 81.28L385.6 671.424C384.8 671.488 384 671.52 383.232 671.52L383.232 671.52zM383.232 671.52" />
-                                            </svg>
+                                            <i class="sicon-shopping-bag text-2xl"></i>
                                             <span class="main-label-note-new"></span>
                                         </div>
                                         <div class="bb-btn-desc flex flex-col ml-[10px] max-[1199px]:hidden">
@@ -282,7 +304,8 @@
                                                 class="bb-btn-title font-Poppins transition-all duration-[0.3s] ease-in-out text-[12px] leading-[1] text-[#3d4750] mb-[4px] tracking-[0.6px] capitalize font-medium whitespace-nowrap"><b
                                                     class="bb-cart-count">4</b> items</span>
                                             <span
-                                                class="bb-btn-stitle font-Poppins transition-all duration-[0.3s] ease-in-out text-[14px] leading-[16px] font-semibold text-[#3d4750]  tracking-[0.03rem] whitespace-nowrap">Cart</span>
+                                                class="bb-btn-stitle font-Poppins transition-all duration-[0.3s] ease-in-out text-[14px] leading-[16px] font-semibold text-[#3d4750]  tracking-[0.03rem] whitespace-nowrap">0
+                                                ر.س</span>
                                         </div>
                                     </a>
                                     <a href="javascript:void(0)"
@@ -320,567 +343,417 @@
                         </button>
                         <div class="bb-main-menu relative flex flex-[auto] justify-start max-[991px]:hidden"
                             id="navbarSupportedContent">
-                            <ul class="navbar-nav flex flex-wrap flex-row ">
-                                <li
-                                    class="nav-item flex items-center font-Poppins text-[15px] text-[#686e7d] font-light leading-[28px] tracking-[0.03rem] mr-[35px]">
-                                    <a class="nav-link p-[0] font-Poppins leading-[28px] text-[15px] font-medium text-[#3d4750] tracking-[0.03rem] block"
-                                        href="index.html">Home</a>
-                                </li>
-                                <li class="nav-item bb-main-dropdown flex items-center mr-[45px]">
-                                    <a class="nav-link bb-dropdown-item font-Poppins relative p-[0] leading-[28px] text-[15px] font-medium text-[#3d4750] block tracking-[0.03rem]"
-                                        href="javascript:void(0)">Categories</a>
-                                    <ul
-                                        class="mega-menu min-w-full transition-all duration-[0.3s] ease-in-out mt-[25px] pl-[30px] absolute top-[40px] z-[16] text-left opacity-[0] invisible left-[0] right-[auto] bg-[#fff] border-[1px] border-solid border-[#eee] flex flex-col rounded-[10px]">
-                                        <li class="m-[0] flex items-center">
-                                            <ul class="mega-block w-[calc(25%-30px)] mr-[30px] py-[15px]">
-                                                <li
-                                                    class="menu_title border-b-[1px] border-solid border-[#eee] mb-[10px] pb-[5px] flex items-center leading-[28px]">
-                                                    <a href="javascript:void(0)"
-                                                        class="transition-all duration-[0.3s] ease-in-out font-Poppins h-[auto] text-[#6c7fd8] text-[15px] font-medium tracking-[0.03rem] block py-[10px] leading-[22px] capitalize">Classic</a>
-                                                </li>
-                                                <li class="flex items-center leading-[28px]"><a
-                                                        href="shop-left-sidebar-col-3.html"
-                                                        class="transition-all duration-[0.3s] ease-in-out font-Poppins py-[10px] leading-[22px] text-[14px] font-normal tracking-[0.03rem] text-[#686e7d] hover:text-[#6c7fd8] capitalize">Left
-                                                        sidebar 3 column</a></li>
-                                                <li class="flex items-center leading-[28px]"><a
-                                                        href="shop-left-sidebar-col-4.html"
-                                                        class="transition-all duration-[0.3s] ease-in-out font-Poppins py-[10px] leading-[22px] text-[14px] font-normal tracking-[0.03rem] text-[#686e7d] hover:text-[#6c7fd8] capitalize">Left
-                                                        sidebar 4 column</a></li>
-                                                <li class="flex items-center leading-[28px]"><a
-                                                        href="shop-right-sidebar-col-3.html"
-                                                        class="transition-all duration-[0.3s] ease-in-out font-Poppins py-[10px] leading-[22px] text-[14px] font-normal tracking-[0.03rem] text-[#686e7d] hover:text-[#6c7fd8] capitalize">Right
-                                                        sidebar 3 column</a></li>
-                                                <li class="flex items-center leading-[28px]"><a
-                                                        href="shop-right-sidebar-col-4.html"
-                                                        class="transition-all duration-[0.3s] ease-in-out font-Poppins py-[10px] leading-[22px] text-[14px] font-normal tracking-[0.03rem] text-[#686e7d] hover:text-[#6c7fd8] capitalize">Right
-                                                        sidebar 4 column</a></li>
-                                                <li class="flex items-center leading-[28px]"><a
-                                                        href="shop-full-width.html"
-                                                        class="transition-all duration-[0.3s] ease-in-out font-Poppins py-[10px] leading-[22px] text-[14px] font-normal tracking-[0.03rem] text-[#686e7d] hover:text-[#6c7fd8] capitalize">Full
-                                                        width 4 column</a></li>
-                                            </ul>
-                                            <ul class="mega-block w-[calc(25%-30px)] mr-[30px] py-[15px]">
-                                                <li
-                                                    class="menu_title border-b-[1px] border-solid border-[#eee] mb-[10px] pb-[5px] flex items-center leading-[28px]">
-                                                    <a href="javascript:void(0)"
-                                                        class="transition-all duration-[0.3s] ease-in-out font-Poppins h-[auto] text-[#6c7fd8] text-[15px] font-medium tracking-[0.03rem] block py-[10px] leading-[22px] capitalize">Banner</a>
-                                                </li>
-                                                <li class="flex items-center leading-[28px]"><a
-                                                        href="shop-banner-left-sidebar-col-3.html"
-                                                        class="transition-all duration-[0.3s] ease-in-out font-Poppins py-[10px] leading-[22px] text-[14px] font-normal tracking-[0.03rem] text-[#686e7d] hover:text-[#6c7fd8] capitalize">left
-                                                        sidebar 3 column</a></li>
-                                                <li class="flex items-center leading-[28px]"><a
-                                                        href="shop-banner-left-sidebar-col-4.html"
-                                                        class="transition-all duration-[0.3s] ease-in-out font-Poppins py-[10px] leading-[22px] text-[14px] font-normal tracking-[0.03rem] text-[#686e7d] hover:text-[#6c7fd8] capitalize">left
-                                                        sidebar 4 column</a></li>
-                                                <li class="flex items-center leading-[28px]"><a
-                                                        href="shop-banner-right-sidebar-col-3.html"
-                                                        class="transition-all duration-[0.3s] ease-in-out font-Poppins py-[10px] leading-[22px] text-[14px] font-normal tracking-[0.03rem] text-[#686e7d] hover:text-[#6c7fd8] capitalize">right
-                                                        sidebar 3 column</a></li>
-                                                <li class="flex items-center leading-[28px]"><a
-                                                        href="shop-banner-right-sidebar-col-4.html"
-                                                        class="transition-all duration-[0.3s] ease-in-out font-Poppins py-[10px] leading-[22px] text-[14px] font-normal tracking-[0.03rem] text-[#686e7d] hover:text-[#6c7fd8] capitalize">right
-                                                        sidebar 4 column</a></li>
-                                                <li class="flex items-center leading-[28px]"><a
-                                                        href="shop-banner-full-width.html"
-                                                        class="transition-all duration-[0.3s] ease-in-out font-Poppins py-[10px] leading-[22px] text-[14px] font-normal tracking-[0.03rem] text-[#686e7d] hover:text-[#6c7fd8] capitalize">Full
-                                                        width 4 column</a></li>
-                                            </ul>
-                                            <ul class="mega-block w-[calc(25%-30px)] mr-[30px] py-[15px]">
-                                                <li
-                                                    class="menu_title border-b-[1px] border-solid border-[#eee] mb-[10px] pb-[5px] flex items-center leading-[28px]">
-                                                    <a href="javascript:void(0)"
-                                                        class="transition-all duration-[0.3s] ease-in-out font-Poppins h-[auto] text-[#6c7fd8] text-[15px] font-medium tracking-[0.03rem] block py-[10px] leading-[22px] capitalize">Columns</a>
-                                                </li>
-                                                <li class="flex items-center leading-[28px]"><a
-                                                        href="shop-full-width-col-3.html"
-                                                        class="transition-all duration-[0.3s] ease-in-out font-Poppins py-[10px] leading-[22px] text-[14px] font-normal tracking-[0.03rem] text-[#686e7d] hover:text-[#6c7fd8] capitalize">3
-                                                        Columns full width</a></li>
-                                                <li class="flex items-center leading-[28px]"><a
-                                                        href="shop-full-width-col-4.html"
-                                                        class="transition-all duration-[0.3s] ease-in-out font-Poppins py-[10px] leading-[22px] text-[14px] font-normal tracking-[0.03rem] text-[#686e7d] hover:text-[#6c7fd8] capitalize">4
-                                                        Columns full width</a></li>
-                                                <li class="flex items-center leading-[28px]"><a
-                                                        href="shop-full-width-col-5.html"
-                                                        class="transition-all duration-[0.3s] ease-in-out font-Poppins py-[10px] leading-[22px] text-[14px] font-normal tracking-[0.03rem] text-[#686e7d] hover:text-[#6c7fd8] capitalize">5
-                                                        Columns full width</a></li>
-                                                <li class="flex items-center leading-[28px]"><a
-                                                        href="shop-full-width-col-6.html"
-                                                        class="transition-all duration-[0.3s] ease-in-out font-Poppins py-[10px] leading-[22px] text-[14px] font-normal tracking-[0.03rem] text-[#686e7d] hover:text-[#6c7fd8] capitalize">6
-                                                        Columns full width</a></li>
-                                                <li class="flex items-center leading-[28px]"><a
-                                                        href="shop-banner-full-width-col-3.html"
-                                                        class="transition-all duration-[0.3s] ease-in-out font-Poppins py-[10px] leading-[22px] text-[14px] font-normal tracking-[0.03rem] text-[#686e7d] hover:text-[#6c7fd8] capitalize">Banner
-                                                        3 Columns</a></li>
-                                            </ul>
-                                            <ul class="mega-block w-[calc(25%-30px)] mr-[30px] py-[15px]">
-                                                <li
-                                                    class="menu_title border-b-[1px] border-solid border-[#eee] mb-[10px] pb-[5px] flex items-center leading-[28px]">
-                                                    <a href="javascript:void(0)"
-                                                        class="transition-all duration-[0.3s] ease-in-out font-Poppins h-[auto] text-[#6c7fd8] text-[15px] font-medium tracking-[0.03rem] block py-[10px] leading-[22px] capitalize">List</a>
-                                                </li>
-                                                <li class="flex items-center leading-[28px]"><a
-                                                        href="shop-list-left-sidebar.html"
-                                                        class="transition-all duration-[0.3s] ease-in-out font-Poppins py-[10px] leading-[22px] text-[14px] font-normal tracking-[0.03rem] text-[#686e7d] hover:text-[#6c7fd8] capitalize">Shop
-                                                        left sidebar</a></li>
-                                                <li class="flex items-center leading-[28px]"><a
-                                                        href="shop-list-right-sidebar.html"
-                                                        class="transition-all duration-[0.3s] ease-in-out font-Poppins py-[10px] leading-[22px] text-[14px] font-normal tracking-[0.03rem] text-[#686e7d] hover:text-[#6c7fd8] capitalize">Shop
-                                                        right sidebar</a></li>
-                                                <li class="flex items-center leading-[28px]"><a
-                                                        href="shop-list-banner-left-sidebar.html"
-                                                        class="transition-all duration-[0.3s] ease-in-out font-Poppins py-[10px] leading-[22px] text-[14px] font-normal tracking-[0.03rem] text-[#686e7d] hover:text-[#6c7fd8] capitalize">Banner
-                                                        left sidebar</a></li>
-                                                <li class="flex items-center leading-[28px]"><a
-                                                        href="shop-list-banner-right-sidebar.html"
-                                                        class="transition-all duration-[0.3s] ease-in-out font-Poppins py-[10px] leading-[22px] text-[14px] font-normal tracking-[0.03rem] text-[#686e7d] hover:text-[#6c7fd8] capitalize">Banner
-                                                        right sidebar</a></li>
-                                                <li class="flex items-center leading-[28px]"><a
-                                                        href="shop-list-full-col-2.html"
-                                                        class="transition-all duration-[0.3s] ease-in-out font-Poppins py-[10px] leading-[22px] text-[14px] font-normal tracking-[0.03rem] text-[#686e7d] hover:text-[#6c7fd8] capitalize">Full
-                                                        width 2 columns</a></li>
-                                            </ul>
-                                        </li>
+                            {# <custom-main-menu></custom-main-menu> #}
+                            {% for menu_id , menu in menus %}
+                            test
+                            {% endfor %}
+                            <li class="" {{ menu.attrs|raw }}>
+                                <a {{ menu.link_attrs|raw }} href="{{ menu.url }}">
+                                    <span>{{ menu.title }}</span>
+                                </a>
+                                {% if menu.has_children %}
+                                <div class="sub-menu {{ menu.products?'w-full left-0 flex': 'w-56' }}">
+                                    <ul class="{{ menu.products?'w-56 shrink-0 m-8 me-0': '' }}">
+                                        {% for submenu in menu.children %}
+                                        {% include _self with {menu:submenu, is_root_menu:false} %}
+                                        {% endfor %}
                                     </ul>
-                                </li>
-                                <li class="nav-item bb-dropdown flex items-center relative mr-[45px]">
-                                    <a class="nav-link bb-dropdown-item font-Poppins relative p-[0] leading-[28px] text-[15px] font-medium text-[#3d4750] block tracking-[0.03rem]"
-                                        href="javascript:void(0)">Products</a>
-                                    <ul
-                                        class="bb-dropdown-menu min-w-[205px] p-[10px] transition-all duration-[0.3s] ease-in-out mt-[25px] absolute top-[40px] z-[16] text-left opacity-[0] invisible left-[0] right-[auto] bg-[#fff] border-[1px] border-solid border-[#eee] flex flex-col rounded-[10px]">
-                                        <li
-                                            class="bb-mega-dropdown m-[0] py-[5px] px-[15px] relative flex items-center">
-                                            <a class="bb-mega-item transition-all duration-[0.3s] ease-in-out font-Poppins py-[5px] leading-[22px] text-[14px] font-normal text-[#686e7d] hover:text-[#6c7fd8] capitalize tracking-[0.03rem]"
-                                                href="javascript:void(0)">Product page</a>
-                                            <ul
-                                                class="bb-mega-menu transition-all duration-[0.3s] ease-in-out min-w-[220px] p-[10px] mt-[25px] absolute top-[-20px] left-[193px] z-[16] text-left opacity-[0] invisible right-[auto] bg-[#fff] border-[1px] border-solid border-[#eee] flex flex-col rounded-[10px]">
-                                                <li class="m-[0] py-[5px] px-[15px] flex items-center"><a
-                                                        class="dropdown-item transition-all duration-[0.3s] ease-in-out py-[6px] text-[14px] font-normal text-[#686e7d] hover:text-[#6c7fd8] capitalize"
-                                                        href="product-left-sidebar.html">Product left sidebar</a>
-                                                </li>
-                                                <li class="m-[0] py-[5px] px-[15px] flex items-center"><a
-                                                        class="dropdown-item transition-all duration-[0.3s] ease-in-out py-[6px] text-[14px] font-normal text-[#686e7d] hover:text-[#6c7fd8] capitalize"
-                                                        href="product-right-sidebar.html">Product right sidebar</a>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li
-                                            class="bb-mega-dropdown m-[0] py-[5px] px-[15px] relative flex items-center">
-                                            <a class="bb-mega-item transition-all duration-[0.3s] ease-in-out font-Poppins py-[5px] leading-[22px] text-[14px] font-normal text-[#686e7d] hover:text-[#6c7fd8] capitalize tracking-[0.03rem]"
-                                                href="javascript:void(0)">Product Accordion</a>
-                                            <ul
-                                                class="bb-mega-menu transition-all duration-[0.3s] ease-in-out min-w-[220px] p-[10px] mt-[25px] absolute top-[-20px] left-[193px] z-[16] text-left opacity-[0] invisible right-[auto] bg-[#fff] border-[1px] border-solid border-[#eee] flex flex-col rounded-[10px]">
-                                                <li class="m-[0] py-[5px] px-[15px] flex items-center"><a
-                                                        class="dropdown-item transition-all duration-[0.3s] ease-in-out py-[6px] text-[14px] font-normal text-[#686e7d] hover:text-[#6c7fd8] capitalize"
-                                                        href="product-accordion-left-sidebar.html">left sidebar</a>
-                                                </li>
-                                                <li class="m-[0] py-[5px] px-[15px] flex items-center"><a
-                                                        class="dropdown-item transition-all duration-[0.3s] ease-in-out py-[6px] text-[14px] font-normal text-[#686e7d] hover:text-[#6c7fd8] capitalize"
-                                                        href="product-accordion-right-sidebar.html">right
-                                                        sidebar</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="m-[0] py-[5px] px-[15px] relative flex items-center">
-                                            <a href="product-full-width.html"
-                                                class="font-Poppins transition-all duration-[0.3s] ease-in-out py-[5px] leading-[22px] text-[14px] font-normal text-[#686e7d] hover:text-[#6c7fd8] capitalize tracking-[0.03rem]">Product
-                                                full width</a>
-                                        </li>
-                                        <li class="m-[0] py-[5px] px-[15px] relative flex items-center">
-                                            <a href="product-accordion-full-width.html"
-                                                class="font-Poppins transition-all duration-[0.3s] ease-in-out py-[5px] leading-[22px] text-[14px] font-normal text-[#686e7d] hover:text-[#6c7fd8] capitalize tracking-[0.03rem]">accordion
-                                                full width</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="nav-item bb-dropdown flex items-center relative mr-[45px]">
-                                    <a class="nav-link bb-dropdown-item font-Poppins relative p-[0] leading-[28px] text-[15px] font-medium text-[#3d4750] block tracking-[0.03rem]"
-                                        href="javascript:void(0)">Pages</a>
-                                    <ul
-                                        class="bb-dropdown-menu min-w-[205px] p-[10px] transition-all duration-[0.3s] ease-in-out mt-[25px] absolute top-[40px] z-[16] text-left opacity-[0] invisible left-[0] right-[auto] bg-[#fff] border-[1px] border-solid border-[#eee] flex flex-col rounded-[10px]">
-                                        <li class="m-[0] py-[5px] px-[15px] flex items-center"><a
-                                                class="dropdown-item transition-all duration-[0.3s] ease-in-out py-[5px] leading-[22px] text-[14px] font-normal text-[#686e7d] hover:text-[#6c7fd8] capitalize block w-full whitespace-nowrap"
-                                                href="about-us.html">About Us</a></li>
-                                        <li class="m-[0] py-[5px] px-[15px] flex items-center"><a
-                                                class="dropdown-item transition-all duration-[0.3s] ease-in-out py-[5px] leading-[22px] text-[14px] font-normal text-[#686e7d] hover:text-[#6c7fd8] capitalize block w-full whitespace-nowrap"
-                                                href="contact-us.html">Contact Us</a></li>
-                                        <li class="m-[0] py-[5px] px-[15px] flex items-center"><a
-                                                class="dropdown-item transition-all duration-[0.3s] ease-in-out py-[5px] leading-[22px] text-[14px] font-normal text-[#686e7d] hover:text-[#6c7fd8] capitalize block w-full whitespace-nowrap"
-                                                href="cart.html">Cart</a></li>
-                                        <li class="m-[0] py-[5px] px-[15px] flex items-center"><a
-                                                class="dropdown-item transition-all duration-[0.3s] ease-in-out py-[5px] leading-[22px] text-[14px] font-normal text-[#686e7d] hover:text-[#6c7fd8] capitalize block w-full whitespace-nowrap"
-                                                href="checkout.html">Checkout</a></li>
-                                        <li class="m-[0] py-[5px] px-[15px] flex items-center"><a
-                                                class="dropdown-item transition-all duration-[0.3s] ease-in-out py-[5px] leading-[22px] text-[14px] font-normal text-[#686e7d] hover:text-[#6c7fd8] capitalize block w-full whitespace-nowrap"
-                                                href="compare.html">Compare</a></li>
-                                        <li class="m-[0] py-[5px] px-[15px] flex items-center"><a
-                                                class="dropdown-item transition-all duration-[0.3s] ease-in-out py-[5px] leading-[22px] text-[14px] font-normal text-[#686e7d] hover:text-[#6c7fd8] capitalize block w-full whitespace-nowrap"
-                                                href="faq.html">Faq</a></li>
-                                        <li class="m-[0] py-[5px] px-[15px] flex items-center"><a
-                                                class="dropdown-item transition-all duration-[0.3s] ease-in-out py-[5px] leading-[22px] text-[14px] font-normal text-[#686e7d] hover:text-[#6c7fd8] capitalize block w-full whitespace-nowrap"
-                                                href="login.html">Login</a></li>
-                                        <li class="m-[0] py-[5px] px-[15px] flex items-center"><a
-                                                class="dropdown-item transition-all duration-[0.3s] ease-in-out py-[5px] leading-[22px] text-[14px] font-normal text-[#686e7d] hover:text-[#6c7fd8] capitalize block w-full whitespace-nowrap"
-                                                href="register.html">Register</a></li>
-                                    </ul>
-                                </li>
-                                <li class="nav-item bb-dropdown flex items-center relative mr-[45px]">
-                                    <a class="nav-link bb-dropdown-item font-Poppins relative p-[0] leading-[28px] text-[15px] font-medium text-[#3d4750] block tracking-[0.03rem]"
-                                        href="javascript:void(0)">Blog</a>
-                                    <ul
-                                        class="bb-dropdown-menu min-w-[205px] p-[10px] transition-all duration-[0.3s] ease-in-out mt-[25px] absolute top-[40px] z-[16] text-left opacity-[0] invisible left-[0] right-[auto] bg-[#fff] border-[1px] border-solid border-[#eee] flex flex-col rounded-[10px]">
-                                        <li class="m-[0] py-[5px] px-[15px] flex items-center"><a
-                                                class="dropdown-item transition-all duration-[0.3s] ease-in-out py-[5px] leading-[22px] text-[14px] font-normal text-[#686e7d] hover:text-[#6c7fd8] capitalize block w-full whitespace-nowrap"
-                                                href="blog-left-sidebar.html">Left Sidebar</a></li>
-                                        <li class="m-[0] py-[5px] px-[15px] flex items-center"><a
-                                                class="dropdown-item transition-all duration-[0.3s] ease-in-out py-[5px] leading-[22px] text-[14px] font-normal text-[#686e7d] hover:text-[#6c7fd8] capitalize block w-full whitespace-nowrap"
-                                                href="blog-right-sidebar.html">Right Sidebar</a></li>
-                                        <li class="m-[0] py-[5px] px-[15px] flex items-center"><a
-                                                class="dropdown-item transition-all duration-[0.3s] ease-in-out py-[5px] leading-[22px] text-[14px] font-normal text-[#686e7d] hover:text-[#6c7fd8] capitalize block w-full whitespace-nowrap"
-                                                href="blog-full-width.html">Full Width</a></li>
-                                        <li class="m-[0] py-[5px] px-[15px] flex items-center"><a
-                                                class="dropdown-item transition-all duration-[0.3s] ease-in-out py-[5px] leading-[22px] text-[14px] font-normal text-[#686e7d] hover:text-[#6c7fd8] capitalize block w-full whitespace-nowrap"
-                                                href="blog-detail-left-sidebar.html">Detail Left Sidebar</a></li>
-                                        <li class="m-[0] py-[5px] px-[15px] flex items-center"><a
-                                                class="dropdown-item transition-all duration-[0.3s] ease-in-out py-[5px] leading-[22px] text-[14px] font-normal text-[#686e7d] hover:text-[#6c7fd8] capitalize block w-full whitespace-nowrap"
-                                                href="blog-detail-right-sidebar.html">Detail Right Sidebar</a></li>
-                                        <li class="m-[0] py-[5px] px-[15px] flex items-center"><a
-                                                class="dropdown-item transition-all duration-[0.3s] ease-in-out py-[5px] leading-[22px] text-[14px] font-normal text-[#686e7d] hover:text-[#6c7fd8] capitalize block w-full whitespace-nowrap"
-                                                href="blog-detail-full-width.html">Detail Full Width</a></li>
-                                    </ul>
-                                </li>
-                                <li class="nav-item flex items-center">
-                                    <a class="nav-link font-Poppins  p-[0] leading-[28px] text-[15px] font-medium tracking-[0.03rem] text-[#3d4750] flex"
-                                        href="offer.html">
-                                        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" x="0" y="0"
-                                            viewBox="0 0 64 64" style="enable-background:new 0 0 512 512"
-                                            xml:space="preserve"
-                                            class="w-[20px] h-[25px] mr-[5px] leading-[18px] align-middle">
-                                            <g>
-                                                <path
-                                                    d="M10 16v22c0 .3.1.6.2.8.3.6 6.5 13.8 21 20h.2c.2 0 .3.1.5.1s.3 0 .5-.1h.2c14.5-6.2 20.8-19.4 21-20 .1-.3.2-.5.2-.8V16c0-.9-.6-1.7-1.5-1.9-7.6-1.9-19.3-9.6-19.4-9.7-.1-.1-.2-.1-.4-.2-.1 0-.1 0-.2-.1h-.9c-.1 0-.2.1-.3.1-.1.1-.2.1-.4.2s-11.8 7.8-19.4 9.7c-.7.2-1.3 1-1.3 1.9zm4 1.5c6.7-2.1 15-7.2 18-9.1 3 1.9 11.3 7 18 9.1v20c-1.1 2.1-6.7 12.1-18 17.3-11.3-5.2-16.9-15.2-18-17.3z"
-                                                    fill="#000000" opacity="1" data-original="#000000"
-                                                    class="fill-[#6c7fd8]"></path>
-                                                <path
-                                                    d="M28.6 38.4c.4.4.9.6 1.4.6s1-.2 1.4-.6l9.9-9.9c.8-.8.8-2 0-2.8s-2-.8-2.8 0L30 34.2l-4.5-4.5c-.8-.8-2-.8-2.8 0s-.8 2 0 2.8z"
-                                                    fill="#000000" opacity="1" data-original="#000000"
-                                                    class="fill-[#6c7fd8]"></path>
-                                            </g>
-                                        </svg>
-                                        Offers
-                                    </a>
-                                </li>
-                            </ul>
+                                    {% if menu.products %}
+                                    <div class="grow p-8">
+                                        <div class="grid gap-4 grid-cols-4">
+                                            {% for product in menu.products|slice(0, 4) %}
+                                            {% include 'pages.partials.product.card' with
+                                            {block_classes:'shadow-default'} %}
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                    {% endif %}
+
+                                </div>
+                                {% endif %}
+                            </li>
+                        </div>
+
+
+                        <div class="bb-dropdown-menu flex max-[991px]:hidden">
+
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
     <div class="bb-mobile-menu-overlay hidden w-full h-screen fixed top-[0] left-[0] bg-[#000000cc] z-[16]"></div>
-    <div id="bb-mobile-menu"
-        class="bb-mobile-menu transition-all duration-[0.3s] ease-in-out w-[340px] h-full pt-[15px] px-[20px] pb-[20px] fixed top-[0] right-[auto] left-[0] bg-[#fff] translate-x-[-100%] flex flex-col z-[17] overflow-auto max-[480px]:w-[300px]">
-        <div class="bb-menu-title w-full pb-[10px] flex flex-wrap justify-between">
-            <span
-                class="menu_title font-Poppins flex items-center text-[16px] text-[#3d4750] font-semibold leading-[26px] tracking-[0.02rem]">My
-                Menu</span>
-            <button type="button"
-                class="bb-close-menu relative border-[0] text-[30px] leading-[1] text-[#ff0000] bg-transparent">×
-            </button>
-        </div>
-        <div class="bb-menu-inner">
-            <div class="bb-menu-content">
-                <ul>
-                    <li class="relative">
-                        <a href="index.html"
-                            class="transition-all duration-[0.3s] ease-in-out mb-[12px] p-[12px] block font-Poppins capitalize text-[#686e7d] border-[1px] border-solid border-[#eee] rounded-[10px] text-[15px] font-medium leading-[28px] tracking-[0.03rem]">Home</a>
-                    </li>
-                    <li class="relative">
-                        <a href="javascript:void(0)"
-                            class="transition-all duration-[0.3s] ease-in-out mb-[12px] p-[12px] block font-Poppins capitalize text-[#686e7d] border-[1px] border-solid border-[#eee] rounded-[10px] text-[15px] font-medium leading-[28px] tracking-[0.03rem]">Categories</a>
-                        <ul class="sub-menu w-full min-w-[auto] p-[0] mb-[10px] static hidden visible opacity-[1]">
-                            <li class="relative">
-                                <a href="javascript:void(0)"
-                                    class="transition-all duration-[0.3s] ease-in-out mb-[0] pl-[15px] pr-[0] py-[12px] capitalize block text-[14px] font-normal text-[#686e7d]">Classic</a>
-                                <ul
-                                    class="sub-menu w-full min-w-[auto] p-[0] mb-[10px] static hidden visible opacity-[1]">
-                                    <li class="relative"><a href="shop-left-sidebar-col-3.html"
-                                            class="font-Poppins leading-[28px] tracking-[0.03rem] transition-all duration-[0.3s] ease-in-out font-normal pl-[30px] text-[14px] text-[#777] mb-[0] capitalize block py-[12px]">Left
-                                            sidebar 3 column</a></li>
-                                    <li class="relative"><a href="shop-left-sidebar-col-4.html"
-                                            class="font-Poppins leading-[28px] tracking-[0.03rem] transition-all duration-[0.3s] ease-in-out font-normal pl-[30px] text-[14px] text-[#777] mb-[0] capitalize block py-[12px]">Left
-                                            sidebar 4 column</a></li>
-                                    <li class="relative"><a href="shop-right-sidebar-col-3.html"
-                                            class="font-Poppins leading-[28px] tracking-[0.03rem] transition-all duration-[0.3s] ease-in-out font-normal pl-[30px] text-[14px] text-[#777] mb-[0] capitalize block py-[12px]">Right
-                                            sidebar 3 column</a></li>
-                                    <li class="relative"><a href="shop-right-sidebar-col-4.html"
-                                            class="font-Poppins leading-[28px] tracking-[0.03rem] transition-all duration-[0.3s] ease-in-out font-normal pl-[30px] text-[14px] text-[#777] mb-[0] capitalize block py-[12px]">Right
-                                            sidebar 4 column</a></li>
-                                    <li class="relative"><a href="shop-full-width.html"
-                                            class="font-Poppins leading-[28px] tracking-[0.03rem] transition-all duration-[0.3s] ease-in-out font-normal pl-[30px] text-[14px] text-[#777] mb-[0] capitalize block py-[12px]">Full
-                                            width 4 column</a></li>
-                                </ul>
-                            </li>
-                            <li class="relative">
-                                <a href="javascript:void(0)"
-                                    class="transition-all duration-[0.3s] ease-in-out mb-[0] pl-[15px] pr-[0] py-[12px] capitalize block text-[14px] font-normal text-[#686e7d]">Banner</a>
-                                <ul
-                                    class="sub-menu w-full min-w-[auto] p-[0] mb-[10px] static hidden visible opacity-[1]">
-                                    <li class="relative"><a href="shop-banner-left-sidebar-col-3.html"
-                                            class="font-Poppins leading-[28px] tracking-[0.03rem] transition-all duration-[0.3s] ease-in-out font-normal pl-[30px] text-[14px] text-[#777] mb-[0] capitalize block py-[12px]">Left
-                                            sidebar 3 column</a></li>
-                                    <li class="relative"><a href="shop-banner-left-sidebar-col-4.html"
-                                            class="font-Poppins leading-[28px] tracking-[0.03rem] transition-all duration-[0.3s] ease-in-out font-normal pl-[30px] text-[14px] text-[#777] mb-[0] capitalize block py-[12px]">Left
-                                            sidebar 4 column</a></li>
-                                    <li class="relative"><a href="shop-banner-right-sidebar-col-3.html"
-                                            class="font-Poppins leading-[28px] tracking-[0.03rem] transition-all duration-[0.3s] ease-in-out font-normal pl-[30px] text-[14px] text-[#777] mb-[0] capitalize block py-[12px]">Right
-                                            sidebar 3 column</a></li>
-                                    <li class="relative"><a href="shop-banner-right-sidebar-col-4.html"
-                                            class="font-Poppins leading-[28px] tracking-[0.03rem] transition-all duration-[0.3s] ease-in-out font-normal pl-[30px] text-[14px] text-[#777] mb-[0] capitalize block py-[12px]">Right
-                                            sidebar 4 column</a></li>
-                                    <li class="relative"><a href="shop-banner-full-width.html"
-                                            class="font-Poppins leading-[28px] tracking-[0.03rem] transition-all duration-[0.3s] ease-in-out font-normal pl-[30px] text-[14px] text-[#777] mb-[0] capitalize block py-[12px]">Full
-                                            width 4 column</a></li>
-                                </ul>
-                            </li>
-                            <li class="relative">
-                                <a href="javascript:void(0)"
-                                    class="transition-all duration-[0.3s] ease-in-out mb-[0] pl-[15px] pr-[0] py-[12px] capitalize block text-[14px] font-normal text-[#686e7d]">Columns</a>
-                                <ul
-                                    class="sub-menu w-full min-w-[auto] p-[0] mb-[10px] static hidden visible opacity-[1]">
-                                    <li class="relative"><a href="shop-full-width-col-3.html"
-                                            class="font-Poppins leading-[28px] tracking-[0.03rem] transition-all duration-[0.3s] ease-in-out font-normal pl-[30px] text-[14px] text-[#777] mb-[0] capitalize block py-[12px]">3
-                                            Columns full width</a></li>
-                                    <li class="relative"><a href="shop-full-width-col-4.html"
-                                            class="font-Poppins leading-[28px] tracking-[0.03rem] transition-all duration-[0.3s] ease-in-out font-normal pl-[30px] text-[14px] text-[#777] mb-[0] capitalize block py-[12px]">4
-                                            Columns full width</a></li>
-                                    <li class="relative"><a href="shop-full-width-col-5.html"
-                                            class="font-Poppins leading-[28px] tracking-[0.03rem] transition-all duration-[0.3s] ease-in-out font-normal pl-[30px] text-[14px] text-[#777] mb-[0] capitalize block py-[12px]">5
-                                            Columns full width</a></li>
-                                    <li class="relative"><a href="shop-full-width-col-6.html"
-                                            class="font-Poppins leading-[28px] tracking-[0.03rem] transition-all duration-[0.3s] ease-in-out font-normal pl-[30px] text-[14px] text-[#777] mb-[0] capitalize block py-[12px]">6
-                                            Columns full width</a></li>
-                                    <li class="relative"><a href="shop-banner-full-width-col-3.html"
-                                            class="font-Poppins leading-[28px] tracking-[0.03rem] transition-all duration-[0.3s] ease-in-out font-normal pl-[30px] text-[14px] text-[#777] mb-[0] capitalize block py-[12px]">Banner
-                                            3 Columns</a></li>
-                                </ul>
-                            </li>
-                            <li class="relative">
-                                <a href="javascript:void(0)"
-                                    class="transition-all duration-[0.3s] ease-in-out mb-[0] pl-[15px] pr-[0] py-[12px] capitalize block text-[14px] font-normal text-[#686e7d]">List</a>
-                                <ul
-                                    class="sub-menu w-full min-w-[auto] p-[0] mb-[10px] static hidden visible opacity-[1]">
-                                    <li class="relative"><a href="shop-list-left-sidebar.html"
-                                            class="font-Poppins leading-[28px] tracking-[0.03rem] transition-all duration-[0.3s] ease-in-out font-normal pl-[30px] text-[14px] text-[#777] mb-[0] capitalize block py-[12px]">Shop
-                                            left sidebar</a></li>
-                                    <li class="relative"><a href="shop-list-right-sidebar.html"
-                                            class="font-Poppins leading-[28px] tracking-[0.03rem] transition-all duration-[0.3s] ease-in-out font-normal pl-[30px] text-[14px] text-[#777] mb-[0] capitalize block py-[12px]">Shop
-                                            right sidebar</a></li>
-                                    <li class="relative"><a href="shop-list-banner-left-sidebar.html"
-                                            class="font-Poppins leading-[28px] tracking-[0.03rem] transition-all duration-[0.3s] ease-in-out font-normal pl-[30px] text-[14px] text-[#777] mb-[0] capitalize block py-[12px]">Banner
-                                            left sidebar</a></li>
-                                    <li class="relative"><a href="shop-list-banner-right-sidebar.html"
-                                            class="font-Poppins leading-[28px] tracking-[0.03rem] transition-all duration-[0.3s] ease-in-out font-normal pl-[30px] text-[14px] text-[#777] mb-[0] capitalize block py-[12px]">Banner
-                                            right sidebar</a></li>
-                                    <li class="relative"><a href="shop-list-full-col-2.html"
-                                            class="font-Poppins leading-[28px] tracking-[0.03rem] transition-all duration-[0.3s] ease-in-out font-normal pl-[30px] text-[14px] text-[#777] mb-[0] capitalize block py-[12px]">Full
-                                            width 2 columns</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="relative">
-                        <a href="javascript:void(0)"
-                            class="transition-all duration-[0.3s] ease-in-out mb-[12px] p-[12px] block font-Poppins capitalize text-[#686e7d] border-[1px] border-solid border-[#eee] rounded-[10px] text-[15px] font-medium leading-[28px] tracking-[0.03rem]">Products</a>
-                        <ul class="sub-menu w-full min-w-[auto] p-[0] mb-[10px] static hidden visible opacity-[1]">
-                            <li class="relative">
-                                <a href="javascript:void(0)"
-                                    class="transition-all duration-[0.3s] ease-in-out mb-[0] pl-[15px] pr-[0] py-[12px] capitalize block text-[14px] font-normal text-[#686e7d]">Product
-                                    page</a>
-                                <ul
-                                    class="sub-menu w-full min-w-[auto] p-[0] mb-[10px] static hidden visible opacity-[1]">
-                                    <li class="relative"><a href="product-left-sidebar.html"
-                                            class="font-Poppins leading-[28px] tracking-[0.03rem] transition-all duration-[0.3s] ease-in-out font-normal pl-[30px] text-[14px] text-[#777] mb-[0] capitalize block py-[12px]">Product
-                                            left sidebar</a></li>
-                                    <li class="relative"><a href="product-right-sidebar.html"
-                                            class="font-Poppins leading-[28px] tracking-[0.03rem] transition-all duration-[0.3s] ease-in-out font-normal pl-[30px] text-[14px] text-[#777] mb-[0] capitalize block py-[12px]">Product
-                                            right sidebar</a></li>
-                                </ul>
-                            </li>
-                            <li class="relative">
-                                <a href="javascript:void(0)"
-                                    class="transition-all duration-[0.3s] ease-in-out mb-[0] pl-[15px] pr-[0] py-[12px] capitalize block text-[14px] font-normal text-[#686e7d]">Product
-                                    Accordion</a>
-                                <ul
-                                    class="sub-menu w-full min-w-[auto] p-[0] mb-[10px] static hidden visible opacity-[1]">
-                                    <li class="relative"><a href="product-accordion-left-sidebar.html"
-                                            class="font-Poppins leading-[28px] tracking-[0.03rem] transition-all duration-[0.3s] ease-in-out font-normal pl-[30px] text-[14px] text-[#777] mb-[0] capitalize block py-[12px]">left
-                                            sidebar</a></li>
-                                    <li class="relative"><a href="product-accordion-right-sidebar.html"
-                                            class="font-Poppins leading-[28px] tracking-[0.03rem] transition-all duration-[0.3s] ease-in-out font-normal pl-[30px] text-[14px] text-[#777] mb-[0] capitalize block py-[12px]">right
-                                            sidebar</a></li>
-                                </ul>
-                            </li>
-                            <li class="relative"><a href="product-full-width.html"
-                                    class="font-Poppins leading-[28px] tracking-[0.03rem] transition-all duration-[0.3s] ease-in-out font-normal pl-[12px] text-[14px] text-[#777] mb-[0] capitalize block py-[12px]">Product
-                                    full width</a></li>
-                            <li class="relative"><a href="product-accordion-full-width.html"
-                                    class="font-Poppins leading-[28px] tracking-[0.03rem] transition-all duration-[0.3s] ease-in-out font-normal pl-[12px] text-[14px] text-[#777] mb-[0] capitalize block py-[12px]">accordion
-                                    full width</a></li>
-                        </ul>
-                    </li>
-                    <li class="relative">
-                        <a href="javascript:void(0)"
-                            class="transition-all duration-[0.3s] ease-in-out mb-[12px] p-[12px] block font-Poppins capitalize text-[#686e7d] border-[1px] border-solid border-[#eee] rounded-[10px] text-[15px] font-medium leading-[28px] tracking-[0.03rem]">Pages</a>
-                        <ul class="sub-menu w-full min-w-[auto] p-[0] mb-[10px] static hidden visible opacity-[1]">
-                            <li class="relative"><a href="about-us.html"
-                                    class="font-Poppins leading-[28px] tracking-[0.03rem] transition-all duration-[0.3s] ease-in-out font-normal pl-[12px] text-[14px] text-[#777] mb-[0] capitalize block py-[12px]">About
-                                    Us</a></li>
-                            <li class="relative"><a href="contact-us.html"
-                                    class="font-Poppins leading-[28px] tracking-[0.03rem] transition-all duration-[0.3s] ease-in-out font-normal pl-[12px] text-[14px] text-[#777] mb-[0] capitalize block py-[12px]">Contact
-                                    Us</a></li>
-                            <li class="relative"><a href="cart.html"
-                                    class="font-Poppins leading-[28px] tracking-[0.03rem] transition-all duration-[0.3s] ease-in-out font-normal pl-[12px] text-[14px] text-[#777] mb-[0] capitalize block py-[12px]">Cart</a>
-                            </li>
-                            <li class="relative"><a href="checkout.html"
-                                    class="font-Poppins leading-[28px] tracking-[0.03rem] transition-all duration-[0.3s] ease-in-out font-normal pl-[12px] text-[14px] text-[#777] mb-[0] capitalize block py-[12px]">Checkout</a>
-                            </li>
-                            <li class="relative"><a href="compare.html"
-                                    class="font-Poppins leading-[28px] tracking-[0.03rem] transition-all duration-[0.3s] ease-in-out font-normal pl-[12px] text-[14px] text-[#777] mb-[0] capitalize block py-[12px]">Compare</a>
-                            </li>
-                            <li class="relative"><a href="faq.html"
-                                    class="font-Poppins leading-[28px] tracking-[0.03rem] transition-all duration-[0.3s] ease-in-out font-normal pl-[12px] text-[14px] text-[#777] mb-[0] capitalize block py-[12px]">Faq</a>
-                            </li>
-                            <li class="relative"><a href="login.html"
-                                    class="font-Poppins leading-[28px] tracking-[0.03rem] transition-all duration-[0.3s] ease-in-out font-normal pl-[12px] text-[14px] text-[#777] mb-[0] capitalize block py-[12px]">Login</a>
-                            </li>
-                            <li class="relative"><a href="register.html"
-                                    class="font-Poppins leading-[28px] tracking-[0.03rem] transition-all duration-[0.3s] ease-in-out font-normal pl-[12px] text-[14px] text-[#777] mb-[0] capitalize block py-[12px]">Register</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="relative">
-                        <a href="javascript:void(0)"
-                            class="transition-all duration-[0.3s] ease-in-out mb-[12px] p-[12px] block font-Poppins capitalize text-[#686e7d] border-[1px] border-solid border-[#eee] rounded-[10px] text-[15px] font-medium leading-[28px] tracking-[0.03rem]">Blog</a>
-                        <ul class="sub-menu w-full min-w-[auto] p-[0] mb-[10px] static hidden visible opacity-[1]">
-                            <li class="relative"><a href="blog-left-sidebar.html"
-                                    class="font-Poppins leading-[28px] tracking-[0.03rem] transition-all duration-[0.3s] ease-in-out font-normal pl-[12px] text-[14px] text-[#777] mb-[0] capitalize block py-[12px]">Left
-                                    Sidebar</a></li>
-                            <li class="relative"><a href="blog-right-sidebar.html"
-                                    class="font-Poppins leading-[28px] tracking-[0.03rem] transition-all duration-[0.3s] ease-in-out font-normal pl-[12px] text-[14px] text-[#777] mb-[0] capitalize block py-[12px]">Right
-                                    Sidebar</a></li>
-                            <li class="relative"><a href="blog-full-width.html"
-                                    class="font-Poppins leading-[28px] tracking-[0.03rem] transition-all duration-[0.3s] ease-in-out font-normal pl-[12px] text-[14px] text-[#777] mb-[0] capitalize block py-[12px]">Full
-                                    Width</a></li>
-                            <li class="relative"><a href="blog-detail-left-sidebar.html"
-                                    class="font-Poppins leading-[28px] tracking-[0.03rem] transition-all duration-[0.3s] ease-in-out font-normal pl-[12px] text-[14px] text-[#777] mb-[0] capitalize block py-[12px]">Detail
-                                    Left Sidebar</a></li>
-                            <li class="relative"><a href="blog-detail-right-sidebar.html"
-                                    class="font-Poppins leading-[28px] tracking-[0.03rem] transition-all duration-[0.3s] ease-in-out font-normal pl-[12px] text-[14px] text-[#777] mb-[0] capitalize block py-[12px]">Detail
-                                    Right Sidebar</a></li>
-                            <li class="relative"><a href="blog-detail-full-width.html"
-                                    class="font-Poppins leading-[28px] tracking-[0.03rem] transition-all duration-[0.3s] ease-in-out font-normal pl-[12px] text-[14px] text-[#777] mb-[0] capitalize block py-[12px]">Detail
-                                    Full Width</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-            <div class="header-res-lan-curr">
-                <!-- Social Start -->
-                <div class="header-res-social mt-[30px]">
-                    <div class="header-top-social">
-                        <ul class="flex flex-row justify-center mb-[0]">
-                            <li
-                                class="list-inline-item w-[30px] h-[30px] flex items-center justify-center bg-[#3d4750] rounded-[10px] mr-[.5rem]">
-                                <a href="#" class="transition-all duration-[0.3s] ease-in-out"><i
-                                        class="ri-facebook-fill text-[#fff] text-[15px]"></i></a>
-                            </li>
-                            <li
-                                class="list-inline-item w-[30px] h-[30px] flex items-center justify-center bg-[#3d4750] rounded-[10px] mr-[.5rem]">
-                                <a href="#" class="transition-all duration-[0.3s] ease-in-out"><i
-                                        class="ri-twitter-fill text-[#fff] text-[15px]"></i></a>
-                            </li>
-                            <li
-                                class="list-inline-item w-[30px] h-[30px] flex items-center justify-center bg-[#3d4750] rounded-[10px] mr-[.5rem]">
-                                <a href="#" class="transition-all duration-[0.3s] ease-in-out"><i
-                                        class="ri-instagram-line text-[#fff] text-[15px]"></i></a>
-                            </li>
-                            <li
-                                class="list-inline-item w-[30px] h-[30px] flex items-center justify-center bg-[#3d4750] rounded-[10px]">
-                                <a href="#" class="transition-all duration-[0.3s] ease-in-out"><i
-                                        class="ri-linkedin-fill text-[#fff] text-[15px]"></i></a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <!-- Social End -->
-            </div>
-        </div>
-    </div>
 </header>
 
-<header class="store-header">
-    {# Top Nav #}
-    <div class="top-navbar">
-        <div class="container flex justify-between">
-            <div class="flex-1 flex items-center gap-2">
-                {# Language & Currency Component #}
-
-
-                {# Scopes | Branches #}
-                {% if store.scope %}
-                <button class="btn--rounded-gray" onclick="salla.event.dispatch('scopes::open', {'mode': 'default'})">
-                    <i class="sicon-location rtl:ml-1 ltr:mr-1"></i> {{ store.scope.name }}
-                </button>
-                {% endif %}
-
-
+<!-- Cart sidebar -->
+<div class="bb-side-cart-overlay hidden w-full h-screen fixed top-[0] left-[0] bg-[#00000080] z-[17]"></div>
+<div class="bb-side-cart w-[770px] h-[calc(100%-30px)] my-[15px] ml-[15px] pt-[15px] px-[8px] text-[14px] font-normal fixed z-[17] top-[0] right-[0] left-[auto] block transition-all duration-[0.5s] ease delay-[0s] translate-x-[100%] bg-[#fff] overflow-auto opacity-[0] rounded-tl-[20px] rounded-bl-[20px] max-[991px]:w-[740px] max-[767px]:w-[350px] max-[575px]:w-[300px]"
+    id="cart-panel">
+    <div class="flex flex-wrap h-full">
+        <div class="min-[768px]:w-[41.66%] w-full px-[12px] max-[767px]:hidden">
+            <div class="bb-top-contact">
+                <div class="bb-cart-title w-full mb-[20px] flex flex-wrap justify-between">
+                    <h4
+                        class="font-quicksand text-[18px] font-extrabold text-[#3d4750] tracking-[0.03rem] leading-[1.2]">
+                        Related Items</h4>
+                </div>
             </div>
-
-            <salla-contacts is-header></salla-contacts>
-        </div>
-    </div>
-
-    {# Main Nav #}
-    <div id="mainnav" class="main-nav-container shadow-default bg-white">
-        <div class="inner bg-inherit">
-            <div class="container">
-                <div class="flex items-stretch justify-between relative">
-                    <div class="flex items-center">
-                        <a class="lg:hidden mburger mburger--collapse leading-none rtl:ml-4 ltr:mr-4"
-                            href="#mobile-menu" aria-label="Open-menu">
-                            <i class="sicon-menu text-primary text-2xl"></i>
-                        </a>
-                        <a class="navbar-brand" href="{{ store.url }}">
-                            <img fetchpriority="high" width="100%" height="100%" loading="eager" src="{{ store.logo }}"
-                                alt="{{ store.name }} logo">
-                            {% if is_page('index') %}
-                            <h1 class="sr-only">{{ store.name }}</h1>
-                            {% else %}
-                            <h2 class="sr-only">{{ store.name }}</h2>
-                            {% endif %}
-                        </a>
-                        <custom-main-menu></custom-main-menu>
+            <div
+                class="bb-cart-box cart-related bb-border-right flex flex-col pr-[24px] border-r-[1px] border-solid border-[#eee] overflow-auto mb-[-24px]">
+                <div class="bb-deal-card mb-[24px]">
+                    <div class="bb-pro-box bg-[#fff] border-[1px] border-solid border-[#eee] rounded-[20px]">
+                        <div
+                            class="bb-pro-img overflow-hidden relative border-b-[1px] border-solid border-[#eee] z-[4]">
+                            <span
+                                class="flags transition-all duration-[0.3s] ease-in-out absolute z-[5] top-[10px] left-[6px]">
+                                <span class="text-[14px] text-[#777] font-medium uppercase">Hot</span>
+                            </span>
+                            <a href="javascript:void(0)">
+                                <div
+                                    class="inner-img relative block overflow-hidden rounded-tl-[20px] rounded-tr-[20px]">
+                                    <img class="main-img transition-all duration-[0.3s] ease delay-[0s] max-w-full"
+                                        src="assets/img/product/2.jpg" alt="product-2">
+                                    <img class="hover-img transition-all duration-[0.3s] ease-in-out absolute z-[2] top-[0] left-[0] opacity-[0] w-full"
+                                        src="assets/img/product/back-2.jpg" alt="product-2">
+                                </div>
+                            </a>
+                            <ul
+                                class="bb-pro-actions transition-all duration-[0.3s] ease-in-out my-[0] mx-[auto] absolute z-[9] left-[0] right-[0] bottom-[0] flex flex-row items-center justify-center opacity-[0]">
+                                <li
+                                    class="bb-btn-group transition-all duration-[0.3s] ease-in-out w-[35px] h-[35px] mx-[2px] flex items-center justify-center text-[#fff] bg-[#fff] border-[1px] border-solid border-[#eee] rounded-[10px]">
+                                    <a href="javascript:void(0)" title="Wishlist"
+                                        class="w-[35px] h-[35px] flex items-center justify-center">
+                                        <i class="ri-heart-line text-[18px] text-[#777] leading-[10px]"></i>
+                                    </a>
+                                </li>
+                                <li
+                                    class="bb-btn-group transition-all duration-[0.3s] ease-in-out w-[35px] h-[35px] mx-[2px] flex items-center justify-center text-[#fff] bg-[#fff] border-[1px] border-solid border-[#eee] rounded-[10px]">
+                                    <a href="javascript:void(0)" title="Quick View"
+                                        class="bb-modal-toggle w-[35px] h-[35px] flex items-center justify-center">
+                                        <i class="ri-eye-line text-[18px] text-[#777] leading-[10px]"></i>
+                                    </a>
+                                </li>
+                                <li
+                                    class="bb-btn-group transition-all duration-[0.3s] ease-in-out w-[35px] h-[35px] mx-[2px] flex items-center justify-center text-[#fff] bg-[#fff] border-[1px] border-solid border-[#eee] rounded-[10px]">
+                                    <a href="compare.html" title="Compare"
+                                        class="w-[35px] h-[35px] flex items-center justify-center">
+                                        <i class="ri-repeat-line text-[18px] text-[#777] leading-[10px]"></i>
+                                    </a>
+                                </li>
+                                <li
+                                    class="bb-btn-group transition-all duration-[0.3s] ease-in-out w-[35px] h-[35px] mx-[2px] flex items-center justify-center text-[#fff] bg-[#fff] border-[1px] border-solid border-[#eee] rounded-[10px]">
+                                    <a href="javascript:void(0)" title="Add To Cart"
+                                        class="w-[35px] h-[35px] flex items-center justify-center">
+                                        <i class="ri-shopping-bag-4-line text-[18px] text-[#777] leading-[10px]"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="bb-pro-contact p-[20px]">
+                            <div class="bb-pro-subtitle mb-[8px] flex flex-wrap justify-between">
+                                <a href="shop-left-sidebar-col-3.html"
+                                    class="font-Poppins text-[13px] leading-[16px] text-[#777] font-light tracking-[0.03rem]">Juice</a>
+                                <span class="bb-pro-rating">
+                                    <i
+                                        class="ri-star-fill float-left text-[15px] mr-[3px] leading-[18px] text-[#fea99a]"></i>
+                                    <i
+                                        class="ri-star-fill float-left text-[15px] mr-[3px] leading-[18px] text-[#fea99a]"></i>
+                                    <i
+                                        class="ri-star-fill float-left text-[15px] mr-[3px] leading-[18px] text-[#fea99a]"></i>
+                                    <i
+                                        class="ri-star-fill float-left text-[15px] mr-[3px] leading-[18px] text-[#fea99a]"></i>
+                                    <i
+                                        class="ri-star-line float-left text-[15px] mr-[3px] leading-[18px] text-[#777]"></i>
+                                </span>
+                            </div>
+                            <h4 class="bb-pro-title mb-[8px] text-[16px] leading-[18px]">
+                                <a href="product-left-sidebar.html"
+                                    class="transition-all duration-[0.3s] ease-in-out font-quicksand w-full block whitespace-nowrap overflow-hidden text-ellipsis text-[15px] leading-[18px] text-[#3d4750] font-semibold tracking-[0.03rem]">Organic
+                                    Apple Juice Pack</a>
+                            </h4>
+                            <div class="bb-price flex flex-wrap justify-between">
+                                <div class="inner-price mx-[-3px]">
+                                    <span class="new-price px-[3px] text-[16px] text-[#686e7d] font-bold">$15</span>
+                                    <span class="item-left px-[3px] text-[14px] text-[#6c7fd8]">3 Left</span>
+                                </div>
+                                <span class="last-items text-[14px] text-[#6c7fd8]">100 ml</span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="flex items-center justify-end">
-                        {% if user.type=='user' %}
-                        <salla-user-menu avatar-only show-header></salla-user-menu>
-                        {% else %}
-                        <button class="header-btn" aria-label="user-icon" onclick="salla.event.dispatch('login::open')">
-                            <i class="header-btn__icon sicon-user-circle"></i>
-                        </button>
-                        {% endif %}
-                        <salla-cart-summary class="ml-4 rtl:ml-[unset] rtl:mr-4">
-                            <i slot="icon" class="header-btn__icon icon sicon-shopping-bag"></i>
-                        </salla-cart-summary>
+                </div>
+                <div class="bb-cart-banner mb-[24px]">
+                    <div class="banner rounded-[20px] relative overflow-hidden">
+                        <img src="assets/img/category/cart-banner.jpg" alt="cart-banner"
+                            class="w-full transition-all duration-[0.3s] ease-in-out">
+                        <div class="detail w-full p-[15px] absolute left-[0] bottom-[0] bg-[#000000b3] flex flex-col">
+                            <h4
+                                class="font-Poppins text-[15px] mb-[5px] leading-[22px] font-light text-[#fff] tracking-[0.03rem]">
+                                Organic & Fresh</h4>
+                            <h3
+                                class="font-quicksand font-semibold tracking-[0.03rem] text-[#fff] text-[22px] leading-[30px]">
+                                Vegetables</h3>
+                            <a href="shop-left-sidebar-col-3.html"
+                                class="transition-all duration-[0.3s] ease-in-out w-[100px] mt-[15px] py-[5px] px-[10px] border-[1px] border-solid border-[#fff] rounded-[10px] text-[#fff] font-Poppins text-[15px] font-light leading-[28px] tracking-[0.03rem] flex items-center justify-center hover:bg-[#fff] hover:text-[#3d4750]">Buy
+                                Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="min-[768px]:w-[58.33%] w-full px-[12px]">
+            <div class="bb-inner-cart relative z-[9] flex flex-col h-full justify-between">
+                <div class="bb-top-contact">
+                    <div class="bb-cart-title w-full mb-[20px] flex flex-wrap justify-between">
+                        <h4
+                            class="font-quicksand text-[18px] font-extrabold text-[#3d4750] tracking-[0.03rem] leading-[1.2]">
+                            My cart</h4>
+                        <a href="javascript:void(0)" id="close-cart"
+                            class="bb-cart-close transition-all duration-[0.3s] ease-in-out w-[16px] h-[20px] absolute top-[-20px] right-[0] bg-[#e04e4eb3] rounded-[10px] cursor-pointer"
+                            title="Close Cart"></a>
+                    </div>
+                </div>
+                <div class="bb-cart-box item h-full flex flex-col max-[767px]:justify-start">
+                    <ul class="bb-cart-items mb-[-24px]">
+                        <li
+                            class="cart-sidebar-list mb-[24px] p-[20px] flex bg-[#f8f8fb] rounded-[20px] border-[1px] border-solid border-[#eee] relative max-[575px]:p-[10px]">
+                            <a href="javascript:void(0)"
+                                class="cart-remove-item transition-all duration-[0.3s] ease-in-out bg-[#3d4750] w-[20px] h-[20px] text-[#fff] absolute top-[-3px] right-[-3px] rounded-[50%] flex items-center justify-center opacity-[0.5] text-[15px]"><i
+                                    class="ri-close-line"></i></a>
+                            <a href="javascript:void(0)"
+                                class="bb-cart-pro-img flex grow-[1] shrink-[0] basis-[25%] items-center max-[575px]:flex-[initial]">
+                                <img src="assets/img/new-product/1.jpg" alt="product-img-1"
+                                    class="w-[85px] rounded-[10px] border-[1px] border-solid border-[#eee] max-[575px]:w-[50px]">
+                            </a>
+                            <div
+                                class="bb-cart-contact pl-[15px] relative grow-[1] shrink-[0] basis-[70%] overflow-hidden">
+                                <a href="product-left-sidebar.html"
+                                    class="bb-cart-sub-title w-full mb-[8px] font-Poppins tracking-[0.03rem] text-[#3d4750] whitespace-nowrap overflow-hidden text-ellipsis block text-[14px] leading-[18px] font-medium">Ground
+                                    Nuts Oil Pack</a>
+                                <span
+                                    class="cart-price mb-[8px] text-[14px] leading-[18px] block font-Poppins text-[#686e7d] font-light tracking-[0.03rem]">
+                                    <span
+                                        class="new-price px-[3px] text-[15px] leading-[18px] text-[#686e7d] font-bold">$15</span>
+                                    x 500 g
+                                </span>
+                                <div
+                                    class="qty-plus-minus h-[28px] w-[85px] py-[7px] border-[1px] border-solid border-[#eee] overflow-hidden relative flex items-center justify-between bg-[#fff] rounded-[10px]">
+                                    <input class="qty-input text-center" type="text" name="bb-qtybtn" value="1">
+                                </div>
+                            </div>
+                        </li>
+                        <li
+                            class="cart-sidebar-list mb-[24px] p-[20px] flex bg-[#f8f8fb] rounded-[20px] border-[1px] border-solid border-[#eee] relative max-[575px]:p-[10px]">
+                            <a href="javascript:void(0)"
+                                class="cart-remove-item transition-all duration-[0.3s] ease-in-out bg-[#3d4750] w-[20px] h-[20px] text-[#fff] absolute top-[-3px] right-[-3px] rounded-[50%] flex items-center justify-center opacity-[0.5] text-[15px]"><i
+                                    class="ri-close-line"></i></a>
+                            <a href="javascript:void(0)"
+                                class="bb-cart-pro-img flex grow-[1] shrink-[0] basis-[25%] items-center max-[575px]:flex-[initial]">
+                                <img src="assets/img/new-product/2.jpg" alt="product-img-2"
+                                    class="w-[85px] rounded-[10px] border-[1px] border-solid border-[#eee] max-[575px]:w-[50px]">
+                            </a>
+                            <div
+                                class="bb-cart-contact pl-[15px] relative grow-[1] shrink-[0] basis-[70%] overflow-hidden">
+                                <a href="product-left-sidebar.html"
+                                    class="bb-cart-sub-title w-full mb-[8px] font-Poppins tracking-[0.03rem] text-[#3d4750] whitespace-nowrap overflow-hidden text-ellipsis block text-[14px] leading-[18px] font-medium">Organic
+                                    Litchi Juice Pack</a>
+                                <span
+                                    class="cart-price mb-[8px] text-[14px] leading-[18px] block font-Poppins text-[#686e7d] font-light tracking-[0.03rem]">
+                                    <span
+                                        class="new-price px-[3px] text-[15px] leading-[18px] text-[#686e7d] font-bold">$25</span>
+                                    x 500 ml
+                                </span>
+                                <div
+                                    class="qty-plus-minus h-[28px] w-[85px] py-[7px] border-[1px] border-solid border-[#eee] overflow-hidden relative flex items-center justify-between bg-[#fff] rounded-[10px]">
+                                    <input class="qty-input text-center" type="text" name="bb-qtybtn" value="1">
+                                </div>
+                            </div>
+                        </li>
+                        <li
+                            class="cart-sidebar-list mb-[24px] p-[20px] flex bg-[#f8f8fb] rounded-[20px] border-[1px] border-solid border-[#eee] relative max-[575px]:p-[10px]">
+                            <a href="javascript:void(0)"
+                                class="cart-remove-item transition-all duration-[0.3s] ease-in-out bg-[#3d4750] w-[20px] h-[20px] text-[#fff] absolute top-[-3px] right-[-3px] rounded-[50%] flex items-center justify-center opacity-[0.5] text-[15px]"><i
+                                    class="ri-close-line"></i></a>
+                            <a href="javascript:void(0)"
+                                class="bb-cart-pro-img flex grow-[1] shrink-[0] basis-[25%] items-center max-[575px]:flex-[initial]">
+                                <img src="assets/img/new-product/3.jpg" alt="product-img-3"
+                                    class="w-[85px] rounded-[10px] border-[1px] border-solid border-[#eee] max-[575px]:w-[50px]">
+                            </a>
+                            <div
+                                class="bb-cart-contact pl-[15px] relative grow-[1] shrink-[0] basis-[70%] overflow-hidden">
+                                <a href="product-left-sidebar.html"
+                                    class="bb-cart-sub-title w-full mb-[8px] font-Poppins tracking-[0.03rem] text-[#3d4750] whitespace-nowrap overflow-hidden text-ellipsis block text-[14px] leading-[18px] font-medium">Crunchy
+                                    Banana Chips</a>
+                                <span
+                                    class="cart-price mb-[8px] text-[14px] leading-[18px] block font-Poppins text-[#686e7d] font-light tracking-[0.03rem]">
+                                    <span
+                                        class="new-price px-[3px] text-[15px] leading-[18px] text-[#686e7d] font-bold">$1</span>
+                                    x 500 g
+                                </span>
+                                <div
+                                    class="qty-plus-minus h-[28px] w-[85px] py-[7px] border-[1px] border-solid border-[#eee] overflow-hidden relative flex items-center justify-between bg-[#fff] rounded-[10px]">
+                                    <input class="qty-input text-center" type="text" name="bb-qtybtn" value="1">
+                                </div>
+                            </div>
+                        </li>
+                        <li
+                            class="cart-sidebar-list mb-[24px] p-[20px] flex bg-[#f8f8fb] rounded-[20px] border-[1px] border-solid border-[#eee] relative max-[575px]:p-[10px]">
+                            <a href="javascript:void(0)"
+                                class="cart-remove-item transition-all duration-[0.3s] ease-in-out bg-[#3d4750] w-[20px] h-[20px] text-[#fff] absolute top-[-3px] right-[-3px] rounded-[50%] flex items-center justify-center opacity-[0.5] text-[15px]"><i
+                                    class="ri-close-line"></i></a>
+                            <a href="javascript:void(0)"
+                                class="bb-cart-pro-img flex grow-[1] shrink-[0] basis-[25%] items-center max-[575px]:flex-[initial]">
+                                <img src="assets/img/new-product/6.jpg" alt="product-img-3"
+                                    class="w-[85px] rounded-[10px] border-[1px] border-solid border-[#eee] max-[575px]:w-[50px]">
+                            </a>
+                            <div
+                                class="bb-cart-contact pl-[15px] relative grow-[1] shrink-[0] basis-[70%] overflow-hidden">
+                                <a href="product-left-sidebar.html"
+                                    class="bb-cart-sub-title w-full mb-[8px] font-Poppins tracking-[0.03rem] text-[#3d4750] whitespace-nowrap overflow-hidden text-ellipsis block text-[14px] leading-[18px] font-medium">Small
+                                    Cardamom Spice Pack</a>
+                                <span
+                                    class="cart-price mb-[8px] text-[14px] leading-[18px] block font-Poppins text-[#686e7d] font-light tracking-[0.03rem]">
+                                    <span
+                                        class="new-price px-[3px] text-[15px] leading-[18px] text-[#686e7d] font-bold">$4</span>
+                                    x 500 g
+                                </span>
+                                <div
+                                    class="qty-plus-minus h-[28px] w-[85px] py-[7px] border-[1px] border-solid border-[#eee] overflow-hidden relative flex items-center justify-between bg-[#fff] rounded-[10px]">
+                                    <input class="qty-input text-center" type="text" name="bb-qtybtn" value="1">
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="bb-bottom-cart">
+                    <div
+                        class="cart-sub-total mt-[20px] pb-[8px] flex flex-wrap justify-between border-t-[1px] border-solid border-[#eee]">
+                        <table class="table cart-table mt-[10px] w-full align-top">
+                            <tbody>
+                                <tr>
+                                    <td class="title font-medium text-[#777] p-[.5rem]">Sub-Total :</td>
+                                    <td class="price text-[#777] text-right p-[.5rem]">$300.00</td>
+                                </tr>
+                                <tr>
+                                    <td class="title font-medium text-[#777] p-[.5rem]">VAT (20%) :</td>
+                                    <td class="price text-[#777] text-right p-[.5rem]">$60.00</td>
+                                </tr>
+                                <tr>
+                                    <td class="title font-medium text-[#777] p-[.5rem]">Total :</td>
+                                    <td class="price text-[#777] text-right p-[.5rem]">$360.00</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="cart-btn flex justify-between mb-[20px]">
+                        <a href="cart.html"
+                            class="bb-btn-1 transition-all duration-[0.3s] ease-in-out font-Poppins leading-[28px] tracking-[0.03rem] py-[5px] px-[15px] text-[14px] font-normal text-[#3d4750] bg-transparent rounded-[10px] border-[1px] border-solid border-[#3d4750] hover:bg-[#6c7fd8] hover:border-[#6c7fd8] hover:text-[#fff]">View
+                            Cart</a>
+                        <a href="checkout.html"
+                            class="bb-btn-2 transition-all duration-[0.3s] ease-in-out font-Poppins leading-[28px] tracking-[0.03rem] py-[5px] px-[15px] text-[14px] font-normal text-[#fff] bg-[#6c7fd8] rounded-[10px] border-[1px] border-solid border-[#6c7fd8] hover:bg-transparent hover:border-[#3d4750] hover:text-[#3d4750]">Checkout</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</header>
+</div>
 
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const openBtn = document.getElementById('custom-cart-btn');
+        const closeBtn = document.getElementById('close-cart');
+        const panel = document.getElementById('cart-panel');
+        const overlay = document.querySelector('.bb-side-cart-overlay');
 
+        openBtn.addEventListener('click', () => {
+            panel.classList.remove('translate-x-full', 'opacity-[0]');
+            panel.classList.add('translate-x-0', 'opacity-[100]');
+            overlay.classList.remove('hidden');
 
-{% if store.scope %}
-<salla-scopes selection="{{ store.scope.display_as == 'popup' ? 'mandatory' : 'optional' }}"></salla-scopes>
-{% endif %}
+            renderCartItems();
+            updateCartTotal();
+        });
+
+        closeBtn.addEventListener('click', () => {
+            panel.classList.add('translate-x-full', 'opacity-[0]');
+            panel.classList.remove('translate-x-0');
+            overlay.classList.add('hidden');
+        });
+
+        overlay.addEventListener('click', () => {
+            panel.classList.add('translate-x-full', 'opacity-[0]');
+            panel.classList.remove('translate-x-0');
+            overlay.classList.add('hidden');
+        });
+
+        window.addEventListener("salla:cart-summary:updated", function () {
+            updateCartTotal();
+            renderCartItems();
+        });
+
+        function formatCurrency(amount) {
+            return new Intl.NumberFormat('ar-EG', {
+                style: 'currency',
+                currency: 'SAR',
+                minimumFractionDigits: 0
+            }).format(amount);
+        }
+
+        function updateCartTotal() {
+            const cart = window.Salla?.Cart?.data;
+            if (!cart) return;
+
+            const total = cart.total ?? 0;
+            const totalSpan = document.getElementById('cart-total-amount');
+            if (totalSpan) {
+                totalSpan.textContent = formatCurrency(total);
+            }
+        }
+
+        function renderCartItems() {
+            const cart = window.Salla?.Cart?.data;
+            if (!cart || !cart.items?.length) return;
+
+            const container = document.querySelector('.bb-cart-items');
+            container.innerHTML = '';
+
+            cart.items.forEach(item => {
+                const li = document.createElement('li');
+                li.className = "cart-sidebar-list mb-[24px] p-[20px] flex bg-[#f8f8fb] rounded-[20px] border border-[#eee] relative";
+
+                li.innerHTML = `
+				<a href="javascript:void(0)" class="remove-btn absolute top-[-3px] right-[-3px] bg-[#3d4750] text-white w-[20px] h-[20px] rounded-full flex items-center justify-center opacity-50 text-[15px]" data-id="${item.id}">
+					<i class="ri-close-line"></i>
+				</a>
+				<a href="${item.product_url}" class="bb-cart-pro-img flex basis-[25%] items-center">
+					<img src="${item.image}" alt="${item.name}" class="w-[85px] rounded-[10px] border border-[#eee] max-[575px]:w-[50px]">
+				</a>
+				<div class="bb-cart-contact pl-[15px] basis-[70%] overflow-hidden">
+					<a href="${item.product_url}" class="bb-cart-sub-title block mb-[8px] text-[#3d4750] font-medium text-[14px] whitespace-nowrap overflow-hidden text-ellipsis">
+						${item.name}
+					</a>
+					<span class="cart-price block mb-[8px] text-[14px] text-[#686e7d] font-light">
+						<span class="new-price font-bold">${formatCurrency(item.price)}</span> x ${item.quantity}
+					</span>
+					<div class="qty-plus-minus h-[28px] w-[85px] flex items-center justify-between bg-white border border-[#eee] rounded-[10px]">
+						<input class="qty-input text-center w-full" type="text" value="${item.quantity}" disabled>
+					</div>
+				</div>
+			`;
+
+                container.appendChild(li);
+            });
+
+            // بعد إدراج العناصر: ربط زر الحذف
+            document.querySelectorAll('.remove-btn').forEach(btn => {
+                btn.addEventListener('click', function () {
+                    const itemId = this.getAttribute('data-id');
+                    if (itemId) {
+                        Salla.Cart.removeItem(itemId);
+                    }
+                });
+            });
+        }
+    });
+</script>
