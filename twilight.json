@@ -1047,7 +1047,7 @@
                     "maxLength": 30
                 },
                 {
-                    "id": "home-slider",
+                    "id": "homeSlider",
                     "type": "collection",
                     "format": "collection",
                     "label": "home-slider",
@@ -1057,7 +1057,7 @@
                     "icon": "sicon-list-add",
                     "fields": [
                         {
-                            "id": "home-slider.image",
+                            "id": "homeSlider.home-slider.image",
                             "type": "string",
                             "format": "image",
                             "label": "صورة السلايدر",
@@ -1069,7 +1069,7 @@
                             "required": true
                         },
                         {
-                            "id": "home-slider.title",
+                            "id": "homeSlider.home-slider.title",
                             "type": "string",
                             "format": "text",
                             "label": "Description",
@@ -1084,7 +1084,7 @@
                             "maxLength": "70"
                         },
                         {
-                            "id": "home-slider.dropdown_list",
+                            "id": "homeSlider.home-slider.dropdown_list",
                             "type": "items",
                             "format": "dropdown-list",
                             "label": "Dropdown List",
