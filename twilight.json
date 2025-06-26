@@ -1032,32 +1032,17 @@
             "path": "home.new-slider",
             "fields": [
                 {
-                    "id": "string_1",
-                    "type": "string",
-                    "format": "text",
-                    "label": "String 1",
-                    "description": null,
-                    "labelHTML": null,
-                    "placeholder": "Placeholder text ..",
-                    "icon": "sicon-format-text-alt",
-                    "value": null,
-                    "multilanguage": false,
-                    "required": false,
-                    "minLength": 6,
-                    "maxLength": 30
-                },
-                {
-                    "id": "home-slider",
+                    "id": "home_slider",
                     "type": "collection",
                     "format": "collection",
-                    "label": "home-slider",
+                    "label": "home_slider",
                     "description": "تخصيص السلايدر",
                     "labelHTML": null,
                     "item_label": "سلايد",
                     "icon": "sicon-list-add",
                     "fields": [
                         {
-                            "id": "home-slider.image",
+                            "id": "home_slider.image",
                             "type": "string",
                             "format": "image",
                             "label": "صورة السلايدر",
@@ -1069,7 +1054,22 @@
                             "required": true
                         },
                         {
-                            "id": "home-slider.title",
+                            "id": "home_slider.title",
+                            "type": "string",
+                            "format": "text",
+                            "label": "String 1",
+                            "description": null,
+                            "labelHTML": null,
+                            "placeholder": "Placeholder text ..",
+                            "icon": "sicon-format-text-alt",
+                            "value": null,
+                            "multilanguage": false,
+                            "required": false,
+                            "minLength": 6,
+                            "maxLength": 30
+                        },
+                        {
+                            "id": "home_slider.description",
                             "type": "string",
                             "format": "text",
                             "label": "Description",
@@ -1084,7 +1084,7 @@
                             "maxLength": "70"
                         },
                         {
-                            "id": "home-slider.dropdown_list",
+                            "id": "home_slider.droplist",
                             "type": "items",
                             "format": "dropdown-list",
                             "label": "Dropdown List",
