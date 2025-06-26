@@ -22,7 +22,8 @@
         "component-store-features",
         "component-youtube",
         "menu-images",
-        "filters"
+        "filters",
+        "component-random-testimonials"
     ],
     "settings": [
         {
@@ -1026,10 +1027,25 @@
         },
         {
             "key": "eeae0b4a-26fa-4125-a072-0734eabf75ca",
-            "title": "صور متحركة ( القالب )",
+            "title": "صور سلايدر متحركة ( القالب )",
             "icon": "sicon-image-carousel",
             "path": "home.new-slider",
             "fields": [
+                {
+                    "id": "string_1",
+                    "type": "string",
+                    "format": "text",
+                    "label": "String 1",
+                    "description": null,
+                    "labelHTML": null,
+                    "placeholder": "Placeholder text ..",
+                    "icon": "sicon-format-text-alt",
+                    "value": null,
+                    "multilanguage": false,
+                    "required": false,
+                    "minLength": 6,
+                    "maxLength": 30
+                },
                 {
                     "id": "home-slider",
                     "type": "collection",
@@ -1053,28 +1069,19 @@
                             "required": true
                         },
                         {
-                            "id": "home-slider.description",
-                            "type": "static",
-                            "format": "description",
-                            "label": "Description",
-                            "value": "وصف السلايدر",
-                            "variant": "h1",
-                            "icon": "sicon-format-size"
-                        },
-                        {
                             "id": "home-slider.title",
                             "type": "string",
                             "format": "text",
-                            "label": "String",
+                            "label": "Description",
                             "description": null,
                             "labelHTML": null,
                             "placeholder": "Placeholder text ..",
                             "icon": "sicon-format-text-alt",
-                            "value": "عنوان السلايدر",
+                            "value": "وصف السلايدر",
                             "multilanguage": false,
                             "required": true,
                             "minLength": "3",
-                            "maxLength": "50"
+                            "maxLength": "70"
                         },
                         {
                             "id": "home-slider.dropdown_list",
