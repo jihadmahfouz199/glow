@@ -1113,7 +1113,75 @@
             "title": "صور متحركة ( القالب )",
             "icon": "sicon-image-carousel",
             "path": "home.new-slider",
-            "fields": []
+            "fields": [
+                {
+                    "id": "home-slider",
+                    "type": "collection",
+                    "format": "collection",
+                    "label": "home-slider",
+                    "description": "تخصيص السلايدر",
+                    "labelHTML": null,
+                    "item_label": "سلايد",
+                    "icon": "sicon-list-add",
+                    "fields": [
+                        {
+                            "id": "home-slider.sort_alslaedr",
+                            "type": "string",
+                            "format": "image",
+                            "label": "صورة السلايدر",
+                            "description": "صورة البنر",
+                            "labelHTML": null,
+                            "placeholder": "e.g. https://hostname.com/image.png",
+                            "icon": "sicon-image",
+                            "value": null,
+                            "required": true
+                        },
+                        {
+                            "id": "home-slider.description",
+                            "type": "static",
+                            "format": "description",
+                            "label": "Description",
+                            "value": "وصف السلايدر",
+                            "variant": "h1",
+                            "icon": "sicon-format-size"
+                        },
+                        {
+                            "id": "home-slider.string",
+                            "type": "string",
+                            "format": "text",
+                            "label": "String",
+                            "description": null,
+                            "labelHTML": null,
+                            "placeholder": "Placeholder text ..",
+                            "icon": "sicon-format-text-alt",
+                            "value": "عنوان السلايدر",
+                            "multilanguage": false,
+                            "required": false,
+                            "minLength": 6,
+                            "maxLength": 30
+                        },
+                        {
+                            "id": "home-slider.dropdown_list",
+                            "type": "items",
+                            "format": "dropdown-list",
+                            "label": "Dropdown List",
+                            "description": null,
+                            "labelHTML": null,
+                            "icon": "sicon-keyboard_arrow_down",
+                            "selected": [],
+                            "options": [],
+                            "source": "Products",
+                            "multichoice": true,
+                            "searchable": true,
+                            "required": false,
+                            "value": []
+                        }
+                    ],
+                    "value": [],
+                    "minLength": 1,
+                    "maxLength": 5
+                }
+            ]
         }
     ],
     "support_url": null,
