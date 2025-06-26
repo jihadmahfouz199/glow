@@ -1125,7 +1125,7 @@
                     "icon": "sicon-list-add",
                     "fields": [
                         {
-                            "id": "home-slider.sort_alslaedr",
+                            "id": "home-slider.image",
                             "type": "string",
                             "format": "image",
                             "label": "صورة السلايدر",
@@ -1146,7 +1146,7 @@
                             "icon": "sicon-format-size"
                         },
                         {
-                            "id": "home-slider.string",
+                            "id": "home-slider.title",
                             "type": "string",
                             "format": "text",
                             "label": "String",
@@ -1156,9 +1156,9 @@
                             "icon": "sicon-format-text-alt",
                             "value": "عنوان السلايدر",
                             "multilanguage": false,
-                            "required": false,
-                            "minLength": 6,
-                            "maxLength": 30
+                            "required": true,
+                            "minLength": "3",
+                            "maxLength": "50"
                         },
                         {
                             "id": "home-slider.dropdown_list",
@@ -1171,9 +1171,9 @@
                             "selected": [],
                             "options": [],
                             "source": "Products",
-                            "multichoice": true,
+                            "multichoice": false,
                             "searchable": true,
-                            "required": false,
+                            "required": true,
                             "value": []
                         }
                     ],
