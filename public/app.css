@@ -494,13 +494,18 @@ select{background-image:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/
 .bottom-1{bottom:0.25rem}
 .bottom-2{bottom:0.5rem}
 .bottom-\[0\]{bottom:0}
+.bottom-\[30px\]{bottom:30px}
+.bottom-\[75px\]{bottom:75px}
 .left-0{left:0px}
 .left-\[0\]{left:0}
+.left-\[20px\]{left:20px}
 .left-\[6px\]{left:6px}
 .left-\[auto\]{left:auto}
 .right-0{right:0px}
+.right-\[-15px\]{right:-15px}
 .right-\[-38px\]{right:-38px}
 .right-\[-3px\]{right:-3px}
+.right-\[-50px\]{right:-50px}
 .right-\[0\]{right:0}
 .top-0{top:0px}
 .top-1\.5{top:0.375rem}
@@ -509,20 +514,16 @@ select{background-image:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/
 .top-4{top:1rem}
 .top-\[-20px\]{top:-20px}
 .top-\[-3px\]{top:-3px}
+.top-\[-50px\]{top:-50px}
 .top-\[0\]{top:0}
 .top-\[10px\]{top:10px}
 .top-\[11px\]{top:11px}
 .top-full{top:100%}
-.bottom-\[30px\]{bottom:30px}
-.bottom-\[75px\]{bottom:75px}
-.left-\[20px\]{left:20px}
-.right-\[-15px\]{right:-15px}
-.right-\[-50px\]{right:-50px}
-.top-\[-50px\]{top:-50px}
 .-z-1{z-index:-1}
 .z-10{z-index:10}
 .z-20{z-index:20}
 .z-50{z-index:50}
+.z-\[-1\]{z-index:-1}
 .z-\[16\]{z-index:16}
 .z-\[17\]{z-index:17}
 .z-\[2\]{z-index:2}
@@ -530,7 +531,6 @@ select{background-image:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/
 .z-\[4\]{z-index:4}
 .z-\[5\]{z-index:5}
 .z-\[9\]{z-index:9}
-.z-\[-1\]{z-index:-1}
 .order-1{order:1}
 .order-2{order:2}
 .col-span-2{grid-column:span 2 / span 2}
@@ -568,6 +568,7 @@ select{background-image:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/
 .mb-\[20px\]{margin-bottom:20px}
 .mb-\[24px\]{margin-bottom:24px}
 .mb-\[4px\]{margin-bottom:4px}
+.mb-\[50px\]{margin-bottom:50px}
 .mb-\[5px\]{margin-bottom:5px}
 .mb-\[8px\]{margin-bottom:8px}
 .me-0{margin-right:0px}
@@ -595,7 +596,6 @@ select{background-image:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/
 .mt-\[10px\]{margin-top:10px}
 .mt-\[15px\]{margin-top:15px}
 .mt-\[20px\]{margin-top:20px}
-.mb-\[50px\]{margin-bottom:50px}
 .line-clamp-1{overflow:hidden;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1}
 .line-clamp-2{overflow:hidden;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2}
 .block{display:block}
@@ -670,6 +670,7 @@ select{background-image:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/
 .w-7{width:1.75rem}
 .w-8{width:2rem}
 .w-\[100px\]{width:100px}
+.w-\[120\%\]{width:120%}
 .w-\[16px\]{width:16px}
 .w-\[20px\]{width:20px}
 .w-\[25px\]{width:25px}
@@ -683,7 +684,6 @@ select{background-image:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/
 .w-\[auto\]{width:auto}
 .w-fit{width:-moz-fit-content;width:fit-content}
 .w-full{width:100%}
-.w-\[120\%\]{width:120%}
 .min-w-0{min-width:0px}
 .min-w-full{min-width:100%}
 .max-w-16{max-width:4rem}
@@ -833,8 +833,8 @@ select{background-image:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/
 .p-\[\.5rem\]{padding:.5rem}
 .p-\[15px\]{padding:15px}
 .p-\[20px\]{padding:20px}
-.p-\[8px\]{padding:8px}
 .p-\[6px\]{padding:6px}
+.p-\[8px\]{padding:8px}
 .\!py-1\.5{padding-top:0.375rem !important;padding-bottom:0.375rem !important}
 .\!py-3{padding-top:0.75rem !important;padding-bottom:0.75rem !important}
 .px-1{padding-left:0.25rem;padding-right:0.25rem}
@@ -848,6 +848,7 @@ select{background-image:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/
 .px-\[10px\]{padding-left:10px;padding-right:10px}
 .px-\[12px\]{padding-left:12px;padding-right:12px}
 .px-\[15px\]{padding-left:15px;padding-right:15px}
+.px-\[20px\]{padding-left:20px;padding-right:20px}
 .px-\[3px\]{padding-left:3px;padding-right:3px}
 .px-\[8px\]{padding-left:8px;padding-right:8px}
 .py-1{padding-top:0.25rem;padding-bottom:0.25rem}
@@ -860,11 +861,10 @@ select{background-image:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/
 .py-5{padding-top:1.25rem;padding-bottom:1.25rem}
 .py-8{padding-top:2rem;padding-bottom:2rem}
 .py-\[20px\]{padding-top:20px;padding-bottom:20px}
+.py-\[50px\]{padding-top:50px;padding-bottom:50px}
 .py-\[5px\]{padding-top:5px;padding-bottom:5px}
 .py-\[6px\]{padding-top:6px;padding-bottom:6px}
 .py-\[7px\]{padding-top:7px;padding-bottom:7px}
-.px-\[20px\]{padding-left:20px;padding-right:20px}
-.py-\[50px\]{padding-top:50px;padding-bottom:50px}
 .py-\[8px\]{padding-top:8px;padding-bottom:8px}
 .\!pt-1{padding-top:0.25rem !important}
 .pb-1{padding-bottom:0.25rem}
@@ -876,11 +876,13 @@ select{background-image:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/
 .pb-6{padding-bottom:1.5rem}
 .pb-7{padding-bottom:1.75rem}
 .pb-8{padding-bottom:2rem}
+.pb-\[50px\]{padding-bottom:50px}
 .pb-\[8px\]{padding-bottom:8px}
 .pl-5{padding-left:1.25rem}
 .pl-\[15px\]{padding-left:15px}
 .pr-14{padding-right:3.5rem}
 .pr-\[24px\]{padding-right:24px}
+.pr-\[50px\]{padding-right:50px}
 .pt-0{padding-top:0px}
 .pt-1{padding-top:0.25rem}
 .pt-16{padding-top:4rem}
@@ -892,8 +894,6 @@ select{background-image:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/
 .pt-6{padding-top:1.5rem}
 .pt-8{padding-top:2rem}
 .pt-\[15px\]{padding-top:15px}
-.pb-\[50px\]{padding-bottom:50px}
-.pr-\[50px\]{padding-right:50px}
 .text-center{text-align:center}
 .text-right{text-align:right}
 .text-start{text-align:left}
@@ -910,12 +910,12 @@ select{background-image:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/
 .text-\[16px\]{font-size:16px}
 .text-\[18px\]{font-size:18px}
 .text-\[22px\]{font-size:22px}
+.text-\[50px\]{font-size:50px}
 .text-base{font-size:1rem;line-height:1.5rem}
 .text-lg{font-size:1.125rem;line-height:1.75rem}
 .text-sm{font-size:0.875rem;line-height:1.25rem}
 .text-xl{font-size:1.25rem;line-height:1.75rem}
 .text-xs{font-size:0.75rem;line-height:1rem}
-.text-\[50px\]{font-size:50px}
 .font-bold{font-weight:700}
 .font-extrabold{font-weight:800}
 .font-light{font-weight:300}
@@ -6554,10 +6554,10 @@ lite-youtube.lyt-activated > .lty-playbtn {
 .hover\:bg-gray-50:hover{--tw-bg-opacity:1;background-color:rgba(249, 250, 251, 1);background-color:rgba(249, 250, 251, var(--tw-bg-opacity, 1))}
 .hover\:bg-transparent:hover{background-color:transparent}
 .hover\:text-\[\#3d4750\]:hover{--tw-text-opacity:1;color:rgba(61, 71, 80, 1);color:rgba(61, 71, 80, var(--tw-text-opacity, 1))}
+.hover\:text-\[\#6c7fd8\]:hover{--tw-text-opacity:1;color:rgba(108, 127, 216, 1);color:rgba(108, 127, 216, var(--tw-text-opacity, 1))}
 .hover\:text-\[\#fff\]:hover{--tw-text-opacity:1;color:rgba(255, 255, 255, 1);color:rgba(255, 255, 255, var(--tw-text-opacity, 1))}
 .hover\:text-dark:hover{--tw-text-opacity:1;color:rgba(29, 31, 31, 1);color:rgba(29, 31, 31, var(--tw-text-opacity, 1))}
 .hover\:text-primary:hover{color:#414042;color:var(--color-primary)}
-.hover\:text-\[\#6c7fd8\]:hover{--tw-text-opacity:1;color:rgba(108, 127, 216, 1);color:rgba(108, 127, 216, var(--tw-text-opacity, 1))}
 .hover\:underline:hover{text-decoration-line:underline}
 .hover\:opacity-80:hover{opacity:0.8}
 .hover\:opacity-90:hover{opacity:0.9}
