@@ -6,7 +6,7 @@
   input[type="radio"] {
     display: none;
 
-    + label {
+    +label {
       cursor: pointer;
 
       span {
@@ -45,19 +45,19 @@
       }
     }
 
-    &:checked + label span:after {
+    &:checked+label span:after {
       opacity: 1;
       transform: scale(1);
     }
 
-    &:disabled + label {
+    &:disabled+label {
       opacity: .45;
     }
   }
 
   &--rounded {
     input[type="radio"] {
-      + label {
+      +label {
         span {
           border-radius: 50%;
           width: 30px;
@@ -84,7 +84,7 @@
     line-height: 42px;
 
     input[type="radio"] {
-      + label {
+      +label {
         transition: transform 0.2s, color 0.3s;
         filter: grayscale(1);
 
@@ -94,7 +94,7 @@
         }
       }
 
-      &:checked + label {
+      &:checked+label {
         filter: grayscale(0);
         transform: scale(1.25) translateY(-3px);
 

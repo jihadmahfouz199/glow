@@ -3,6 +3,8 @@ import BasePage from "./base-page";
 import Lightbox from "fslightbox";
 window.fslightbox = Lightbox;
 
+console.log("✅ ملف home.js تم تحميله بنجاح");
+
 class Home extends BasePage {
     onReady() {
         this.initFeaturedTabs();
